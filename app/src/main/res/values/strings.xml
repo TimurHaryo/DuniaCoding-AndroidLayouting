@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Dunia Layout</string>
+    <string name="item_name">Quinoa Fruit Salad</string>
+    <string name="title_ingredient">One Pack Contains:</string>
+    <string name="content_ingredient">Red Quinoa, Lime, Honey, Blueberries, Strawberries, Mango, Fresh mint.</string>
+    <string name="desc_item">If you are looking for a new fruit salad to eat today, quinoa is the perfect brunch for you.</string>
+    <string name="buy">Buy</string>
 </resources>
