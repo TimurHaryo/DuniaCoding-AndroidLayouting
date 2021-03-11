@@ -1,18 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <variable
+            name="viewModel"
+            type="id.duniacoding.layouting.ui.MainViewModel" />
+
+        <variable
+            name="activity"
+            type="id.duniacoding.layouting.ui.MainActivity" />
+
+        <variable
+            name="item"
+            type="id.duniacoding.layouting.data.Item" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/orange"
+        android:orientation="vertical"
+        tools:context=".ui.MainActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.35" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivItem"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            android:padding="16dp"
+            loadImage="@{item.image}"
+            tools:src="@drawable/breakfast"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_card_main"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline4">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@{item.name}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Test Title" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnMinus"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_minus"
+                android:onClick="@{() -> viewModel.decreaseItem()}"
+                app:layout_constraintEnd_toStartOf="@+id/tvQuantity"
+                app:layout_constraintStart_toStartOf="@+id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                app:srcCompat="@drawable/ic_minus" />
+
+            <TextView
+                android:id="@+id/tvQuantity"
+                android:layout_width="9dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:text="@{Integer.toString(viewModel.numberOfItem)}"
+                app:layout_constraintBottom_toBottomOf="@+id/btnMinus"
+                app:layout_constraintEnd_toStartOf="@+id/btnPlus"
+                app:layout_constraintStart_toEndOf="@+id/btnMinus"
+                app:layout_constraintTop_toTopOf="@+id/btnMinus"
+                tools:text="1" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnPlus"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/bg_plus"
+                android:onClick="@{() -> viewModel.increaseItem()}"
+                app:layout_constraintBottom_toBottomOf="@+id/tvQuantity"
+                app:layout_constraintStart_toEndOf="@+id/tvQuantity"
+                app:layout_constraintTop_toTopOf="@+id/tvQuantity"
+                app:srcCompat="@drawable/ic_plus" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="24dp"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="@{Integer.toString(item.price)}"
+                app:layout_constraintBottom_toBottomOf="@+id/btnPlus"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnPlus"
+                tools:text="2000" />
+
+            <TextView
+                android:id="@+id/tvRp"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+                app:layout_constraintEnd_toStartOf="@+id/tvPrice"
+                app:layout_constraintTop_toTopOf="@+id/tvPrice"
+                android:text="@string/rp" />
+
+            <View
+                android:id="@+id/viewUpperBorder"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:alpha="0.5"
+                android:layout_marginTop="24dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnMinus" />
+
+            <TextView
+                android:id="@+id/tvTitleIngredients"
+                style="@style/HeaderTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_ingredient"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="@+id/btnMinus"
+                app:layout_constraintTop_toBottomOf="@+id/viewUpperBorder" />
+
+            <View
+                android:id="@+id/viewUnderline"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@color/orange"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="@+id/tvTitleIngredients"
+                app:layout_constraintStart_toStartOf="@+id/tvTitleIngredients"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleIngredients" />
+
+            <TextView
+                android:id="@+id/tvIngredients"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@{item.ingredient}"
+                app:layout_constraintEnd_toEndOf="@+id/tvPrice"
+                app:layout_constraintStart_toStartOf="@+id/viewUnderline"
+                app:layout_constraintTop_toBottomOf="@+id/viewUnderline"
+                tools:text="Test ingredient does it work properly?" />
+
+            <View
+                android:id="@+id/viewLowerBorder"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:alpha="0.5"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvIngredients" />
+
+            <TextView
+                android:id="@+id/tcDescItem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@{item.desc}"
+                app:layout_constraintEnd_toEndOf="@+id/tvIngredients"
+                app:layout_constraintStart_toStartOf="@+id/tvIngredients"
+                app:layout_constraintTop_toBottomOf="@+id/viewLowerBorder"
+                tools:text="This is description of the item" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBuy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:padding="12dp"
+                android:text="@string/buy"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> activity.onBuy(viewModel.numberOfItem)}"
+                app:cornerRadius="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

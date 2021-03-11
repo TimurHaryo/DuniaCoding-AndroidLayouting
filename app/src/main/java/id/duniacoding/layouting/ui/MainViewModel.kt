@@ -10,14 +10,22 @@ class MainViewModel: ViewModel() {
         get() = _numberOfItem
 
     init {
-        _numberOfItem.value = 0
+        _numberOfItem.value = 1
     }
 
     fun increaseItem() {
-        _numberOfItem.value?.plus(1)
+        _numberOfItem.value?.let { q ->
+            if (q < 9) {
+                _numberOfItem.value = q + 1
+            }
+        }
     }
 
     fun decreaseItem() {
-        _numberOfItem.value?.minus(1)
+        _numberOfItem.value?.let { q ->
+            if (q > 1) {
+                _numberOfItem.value = q - 1
+            }
+        }
     }
 }
